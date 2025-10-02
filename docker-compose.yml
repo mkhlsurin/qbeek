@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: "mongodb://mongo:27017/users_api"
+    ports: ["3000:3000"]
+    depends_on: [mongo]
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db   
+    restart: unless-stopped
+
+volumes:
+  mongo_data:

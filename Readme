@@ -1,0 +1,62 @@
+Qbeek Users API
+
+A minimal TypeScript + Express API with MongoDB. 
+
+Runs locally with Docker Compose in several commands.
+
+There is a script to seed the first admin. 
+
+Tech:
+
+Node.js 22+, TypeScript, Express
+MongoDB 7 (via Docker)
+Mongoose
+JWT auth (access/refresh)
+Postman collection for endpoints (instead of Swagger) as JSON
+
+Requirements:
+
+Docker & Docker Compose
+(Optional for local dev) Node.js 22+, npm
+
+
+Quick start:
+
+# 1) Create envs from template
+cp .env.example .env
+
+# 2) Start API + Mongo
+docker compose up --build -d
+
+# 3) Seed the first Admin
+docker compose run --rm api npm run seed
+
+
+Environment variables used by seeding come from .env:
+
+SEED_ADMIN_EMAIL,
+SEED_ADMIN_PASSWORD,
+SEED_ADMIN_NAME
+BCRYPT_SALT_ROUNDS
+DATABASE_URL 
+JWT SECRETS
+JWT EXPIRE TIME
+
+Re-running won’t duplicate the admin.
+
+Stop the project:
+
+# 1) Stop and remove this project's containers & network
+docker compose down
+
+# 2) Remove this project's volumes (DELETES DB DATA)
+docker compose down --volumes
+
+Note:
+
+The production container installs production deps only; dev tools (e.g., tsx, ts-node-dev) are not present inside the runtime image!
+
+Tests in Postman:
+
+Authorization via Bearer AccessToken (granted with login by email and password)
+s
